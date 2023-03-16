@@ -69,14 +69,16 @@ const readInput = async (message) => {
   return desc;
 };
 
-const listTaskForDelete = async (tasks = []) => {
-  const choices = tasks.map((task, i) => {
+const list = async ( data = []) => {
+  const choices = data.map((choice, i) => {
     const idx = `${i + 1}.`.green;
     return {
-      value: task.id,
-      name: `${idx} ${task.desc}`,
+      value: choice.id,
+      name: `${idx} ${choice.name}`,
     };
   });
+
+
 
   choices.unshift({
     value: "0",
@@ -86,15 +88,15 @@ const listTaskForDelete = async (tasks = []) => {
   const questions = [
     {
       type: "list",
-      name: "deleteId",
-      message: "Borrar",
+      name: "id",
+      message: "Seleccione Lugar: ",
       choices,
     },
   ];
 
-  const { deleteId } = await inquirer.prompt(questions);
+  const { id } = await inquirer.prompt(questions);
 
-  return deleteId;
+  return id;
 };
 
 const confirm = async (message) => {
@@ -140,7 +142,7 @@ export {
   inquirerMenu,
   pause,
   readInput,
-  listTaskForDelete,
+  list,
   confirm,
   showListTasks,
 };
