@@ -64,6 +64,8 @@ export class Seeker {
       return;
     }
 
+    this.history = this.history.splice(0,5);
+
     // Añadir al array
     this.history.unshift(place.toLocaleLowerCase());
 
@@ -80,6 +82,25 @@ export class Seeker {
   }
 
   readData() {
+   
+    
+    // Verificar que debe existir
+    if(!fs.existsSync(this.dbPath)) {
+      return console.log('No Existe archivo de Base de datos'.red)
+    } else {      
+      const info = fs.readFileSync(this.dbPath, { encoding: 'utf-8'});
+      const data = JSON.parse(info);
+      this.history = data.history;
+    }
 
+
+  }
+
+  getHistoryCapitalized() {
+    return this.history.map( place => {
+      let words = place.split(' ');
+      words = words.map( p => p[0].toUpperCase() + p.substring(1));
+      return words.join(' ');
+    })
   }
 }

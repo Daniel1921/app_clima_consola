@@ -9,6 +9,8 @@ const main = async () => {
   const searches = new Seeker();
   let opt;
 
+  
+  searches.readData();
   do {
     opt = await inquirerMenu();
     switch (opt) {
@@ -38,10 +40,11 @@ const main = async () => {
         break;
 
         case 2: 
-         searches.history.forEach( (place, i) => {
-          const idx = `${i + 1}`.green;
-          console.log(`${idx} ${place}`);
-         })
+          searches.getHistoryCapitalized().forEach( (place, i) => {
+           const idx = `${i + 1}`.green;
+           console.log(`${idx} ${place}`);
+          })
+        
          break;
 
     }
